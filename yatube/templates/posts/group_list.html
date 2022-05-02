@@ -1,22 +1,27 @@
-<!-- templates/ice_cream/ice_cream_list.html --> 
 {% extends 'base.html' %}
-{% block content %}
-  Список мороженого быть тут должен
-{% endblock %} 
 
-<!DOCTYPE html> 
-<html lang="ru">          
-  <head>       
-  </head>
-  <body>       
-    <header>
-      {% include 'includes/header.html' %}     
-    </header>
-    <main>
-      Список мороженого быть тут должен
-    </main>
-    <footer>
-      {% include 'includes/footer.html' %} 
-    </footer>
-  </body>
-</html> 
+{% block title %}
+  <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for post in posts %}
+    <ul>
+      <li>
+        Author: {{ post.author.get_full_name }}
+      </li>
+      <li>
+        Date of publication: {{ post.pub_date|date:"d E Y" }}
+      </li>
+    </ul>
+    <p>
+      {{ post.text|linebreaksbr }}
+    </p>
+    {% if post.group %}
+      <a href="{% url 'posts:group_posts' post.group.slug %}">все записи группы.</a>
+    {% endif %}
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

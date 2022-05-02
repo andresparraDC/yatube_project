@@ -1,24 +1,34 @@
-<!-- templates/ice_cream/index.html -->
-{% extends 'base.html' %}
-{% block content %}
-  Это главная страница проекта «Анфиса для друзей»!
+{% comment %}
+Студент: Фредди Андрес Парра Орельяна
+The index file indicates the index
+from the main page of the Yatube project
+{% endcomment %}
+{% extends 'base.html' %} 
+
+{% block title %}
+  <h1>{{ title }}</h1>
 {% endblock %} 
 
-<!DOCTYPE html> 
-<html lang="ru">          
-  <head>       
-  </head>
-  <body>       
-    <header>
-      <!-- Это тег шаблонизатора include, сюда будет включён код
-      из файла includes/header.html -->
-      {% include 'includes/header.html' %}
-    </header>
-    <main>
-      Информация на главной странице
-    </main>
-    <footer>
-      {% include 'includes/footer.html' %} 
-    </footer>
-  </body>
-</html> 
+{% block content %}
+  {% for post in posts %}
+    <article>
+      <ul>
+        <li>
+          Автор: {{ post.author.get_full_name }}
+        </li>
+        <li>
+          Дата публикации: {{ post.pub_date|date:"d E Y" }}
+        </li>
+      </ul>
+      <p>
+        {{ post.text|linebreaksbr }}
+      </p>
+      {% if post.group %}
+        <a href="{% url 'posts:group_posts' post.group.slug %}">All group records.</a>
+      {% endif %}
+    </article>
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
