@@ -11,21 +11,15 @@ def index(request):
         'title': title,
         'posts': posts,
     }
-    return render(
-        request=request,
-        template=template,
-        context=context
-    )
+    return render(request, template, context)
 
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
     num_posts = 10
-    posts = Post.objects.filter(group=group).order_by('-pub_date')[:num_posts]
-    title = 'Страница групп'
+    posts = group.posts_group.all()[:num_posts]
     template = 'posts/group_list.html'
     context = {
-        'title': title,
         'group': group,
         'posts': posts,
     }

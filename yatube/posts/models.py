@@ -6,7 +6,10 @@ User = get_user_model()
 
 
 class Group(models.Model):
-    title = models.CharField(max_length=300)  # название группы
+    title = models.CharField(
+        max_length=300,
+        default=True
+    )  # название группы
     slug = models.SlugField(
         primary_key=True,
         max_length=100,
@@ -15,7 +18,7 @@ class Group(models.Model):
         )
     description = models.TextField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
@@ -33,7 +36,7 @@ class Post(models.Model):
         null=True,
         max_length=200,
         on_delete=models.CASCADE,
-        related_name='group_name'
+        related_name='posts_group'
     )
 
     class Meta:
