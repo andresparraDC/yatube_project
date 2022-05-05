@@ -1,11 +1,21 @@
-<!-- Использованы классы бустрапа для создания типовой навигации с логотипом -->
-<!-- В дальнейшем тут будет создано полноценное меню -->    
+{% load static %}
 <nav class="navbar navbar-light" style="background-color: lightskyblue">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">
-            <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            <!-- тег span используется для добавления нужных стилей отдельным участкам текста -->
+  <div class="container">
+        <a class="navbar-brand" href="{% url 'posts:index' %}">
+            <img src="{% static 'img/logo.png'  %}" width="30" height="30" class="d-inline-block align-top" alt="">
             <span style="color:red">Ya</span>tube</a>
         </a>
     </div>
-</nav> 
+    <ul>
+      <li class="nav-item active" style="display: inline-block; font-size: 20px; font-family: sans-serif;">
+        <a href="{% url 'posts:index' %}" style="color: white;">
+          Главная страница
+        </a>
+      </li>
+      <li class="nav-item" style="display: inline-block; font-size: 20px; font-family: sans-serif;">
+        <a href="about/">
+          О сайте
+        </a>
+      </li>
+    </ul>
+</nav>
